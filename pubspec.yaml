@@ -15,6 +15,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.5
   spider: ^4.2.2
+  change_app_package_name: ^1.2.0
+  page_transition: ^2.1.0
+  audioplayers: ^6.0.0
+
 
 
 dev_dependencies:
@@ -30,3 +34,5 @@ flutter:
 
   assets:
     - assets/vectors/
+    - assets/images/
+    - assets/
