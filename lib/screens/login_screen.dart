@@ -7,6 +7,7 @@ import '../components/app_text_form_field.dart';
 import '../resources/resources.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
+import '../utils/kcolors.dart';
 import '../values/app_constants.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
@@ -131,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ? Icons.visibility_off_outlined
                                 : Icons.visibility_outlined,
                             size: 20,
-                            color: Colors.black,
+                            color: KColors.black,
                           ),
                         ),
                       );
@@ -171,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           AppStrings.orLoginWith,
                           style: AppTheme.bodySmall.copyWith(
-                            color: Colors.black,
+                            color: KColors.black,
                           ),
                         ),
                       ),
@@ -187,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
                           icon: SvgPicture.asset(Vectors.google, width: 14),
                           label: const Text(
                             AppStrings.google,
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: KColors.black),
                           ),
                         ),
                       ),
@@ -198,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                           icon: SvgPicture.asset(Vectors.facebook, width: 14),
                           label: const Text(
                             AppStrings.facebook,
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: KColors.black),
                           ),
                         ),
                       ),
@@ -213,7 +214,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Text(
                 AppStrings.doNotHaveAnAccount,
-                style: AppTheme.bodySmall.copyWith(color: Colors.black),
+                style: AppTheme.bodySmall.copyWith(color: KColors.black),
               ),
               const SizedBox(width: 4),
               TextButton(

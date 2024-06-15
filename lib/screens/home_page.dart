@@ -32,11 +32,11 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Explore",
+              "Explorer",
               style: TextStyle(
                   fontSize: 20, color: KColors.white, fontWeight: FontWeight.bold),
             ),
-            Icon(Icons.list)
+            Icon(Icons.list, color: KColors.white,)
           ],
         ),
       ),

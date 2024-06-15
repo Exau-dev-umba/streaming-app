@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../utils/constants.dart';
 import '../utils/kcolors.dart';
 import '../values/app_colors.dart';
+import 'home_page.dart';
 import 'home_screen.dart';
 
 class NavigationHomeScreen extends StatefulWidget {
@@ -17,10 +18,9 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
 
   int _currentIndex = 0;
   final pages= <Widget>[
-    HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
-
+    HomePage(),
+    HomePage(),
+    HomePage(),
   ];
 
   @override
@@ -36,9 +36,10 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
 
   Widget _bottomNav(){
     return BottomNavigationBar(
-      backgroundColor: KColors.bgColor,
+      backgroundColor: KColors.black,
       currentIndex: _currentIndex,
-      type: BottomNavigationBarType.fixed,
+      mouseCursor: SystemMouseCursors.click,
+      // type: BottomNavigationBarType.fixed,
       unselectedItemColor: Colors.grey,
       selectedItemColor: Colors.white,
       unselectedLabelStyle: TextStyle(fontSize: 12),

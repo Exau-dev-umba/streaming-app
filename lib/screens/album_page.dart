@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../json/songs_json.dart';
@@ -8,7 +10,8 @@ import 'music_detail_page.dart';
 class AlbumPage extends StatefulWidget {
   final dynamic song;
 
-  const AlbumPage({ Key? key, this.song}) : super(key: key);
+  const AlbumPage({Key? key, this.song}) : super(key: key);
+
   @override
   _AlbumPageState createState() => _AlbumPageState();
 }
@@ -24,7 +27,7 @@ class _AlbumPageState extends State<AlbumPage> {
 
   Widget getBody() {
     var size = MediaQuery.of(context).size;
-    List songAlbums = widget.song['songs'] as List<dynamic>;
+    List<dynamic> songAlbums = widget.song['songs'] as List<dynamic>;
     return SingleChildScrollView(
       child: Stack(
         children: [
@@ -51,17 +54,48 @@ class _AlbumPageState extends State<AlbumPage> {
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: KColors.white)),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: KColors.grey, borderRadius: BorderRadius.circular(5)),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 12, right: 12, top: 8, bottom: 8),
-                        child: Text(
-                          "Subscribe",
-                          style: TextStyle(color: KColors.white),
+                    Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: KColors.grey,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 12, right: 12, top: 8, bottom: 8),
+                            child: Text(
+                              "Téléchargé",
+                              style: TextStyle(color: KColors.white),
+                            ),
+                          ),
                         ),
-                      ),
+                        // int.parse(widget.song['song_count'] as String, radix: 2) == 1?
+                        Padding(
+                            padding: const EdgeInsets.only(
+                                left: 14),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.play_circle,
+                                color: widget.song['color'] as Color,
+                                size: 30,
+                              ), onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      alignment: Alignment.bottomCenter,
+                                      child: MusicDetailPage(
+                                        title: widget.song['title'] as String,
+                                        color: widget.song['color'] as Color,
+                                        description:
+                                        widget.song['description'] as String,
+                                        img: widget.song['img'] as String,
+                                        songUrl:
+                                        widget.song['song_url'] as String,
+                                      ),
+                                      type: PageTransitionType.scale));
+                            },
+                            ))
+                      ],
                     )
                   ],
                 ),
@@ -86,9 +120,11 @@ class _AlbumPageState extends State<AlbumPage> {
                                     child: MusicDetailPage(
                                       title: songs[index]['title'] as String,
                                       color: songs[index]['color'] as Color,
-                                      description: songs[index]['description'] as String,
+                                      description:
+                                          songs[index]['description'] as String,
                                       img: songs[index]['img'] as String,
-                                      songUrl: songs[index]['song_url'] as String,
+                                      songUrl:
+                                          songs[index]['song_url'] as String,
                                     ),
                                     type: PageTransitionType.scale));
                           },
@@ -99,7 +135,8 @@ class _AlbumPageState extends State<AlbumPage> {
                                 height: 180,
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        image: AssetImage(songs[index]['img'] as String),
+                                        image: AssetImage(
+                                            songs[index]['img'] as String),
                                         fit: BoxFit.cover),
                                     color: KColors.primary,
                                     borderRadius: BorderRadius.circular(10)),
@@ -169,7 +206,8 @@ class _AlbumPageState extends State<AlbumPage> {
                               child: MusicDetailPage(
                                 title: widget.song['title'] as String,
                                 color: widget.song['color'] as Color,
-                                description: widget.song['description'] as String,
+                                description:
+                                    widget.song['description'] as String,
                                 img: widget.song['img'] as String,
                                 songUrl: widget.song['song_url'] as String,
                               ),
@@ -192,7 +230,8 @@ class _AlbumPageState extends State<AlbumPage> {
                             children: [
                               Text(
                                 songAlbums[index]['duration'] as String,
-                                style: TextStyle(color: KColors.grey, fontSize: 14),
+                                style: TextStyle(
+                                    color: KColors.grey, fontSize: 14),
                               ),
                               Container(
                                 width: 25,

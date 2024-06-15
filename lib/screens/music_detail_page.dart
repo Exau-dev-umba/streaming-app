@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
@@ -34,6 +32,7 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
   //late AudioPlayer advancedPlayer;
   late AudioCache audioCache;
   bool isPlaying = true;
+  bool isFavorie = true;
 
   @override
   void initState() {
@@ -85,12 +84,34 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
       backgroundColor: KColors.black,
       elevation: 0,
       actions: [
-        IconButton(
-            icon: Icon(
-              Icons.more_vert,
-              color: KColors.white,
-            ),
-            onPressed: null)
+        Row(
+          children: [
+            IconButton(
+                icon: Icon(
+                  isFavorie?
+                  Icons.favorite_border:
+                  Icons.favorite,
+                  color: KColors.white,
+                ),
+                onPressed: (){
+                  if (isFavorie) {
+                    setState(() {
+                      isFavorie = false;
+                    });
+                  } else {
+                    setState(() {
+                      isFavorie = true;
+                    });
+                  }
+                }),
+            IconButton(
+                icon: Icon(
+                  Icons.more_vert,
+                  color: KColors.white,
+                ),
+                onPressed: null),
+          ],
+        )
       ],
     );
   }
@@ -109,7 +130,7 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
                   height: size.width - 100,
                   decoration: BoxDecoration(boxShadow: [
                     BoxShadow(
-                        color: widget.color!!,
+                        color: widget.color!,
                         blurRadius: 50,
                         spreadRadius: 5,
                         offset: Offset(-10, 40))
@@ -141,7 +162,7 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(
-                    Icons.folder_copy,
+                    Icons.create_new_folder_rounded,
                     color: KColors.white,
                   ),
                   Column(

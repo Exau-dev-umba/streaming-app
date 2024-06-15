@@ -6,7 +6,7 @@ import '../extensions.dart';
 class GradientBackground extends StatelessWidget {
   const GradientBackground({
     required this.children,
-    this.colors = AppColors.defaultGradient,
+    this.colors = AppColors.transparentGradient,
     super.key,
   });
 
@@ -15,20 +15,27 @@ class GradientBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(gradient: LinearGradient(colors: colors)),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              height: context.heightFraction(sizeFraction: 0.1),
-            ),
-            ...children,
-          ],
+    return Stack(
+      children: [
+        Image.asset(
+          "assets/gaz/image_8336_Gaz-Mawete-1080x811.jpg",
         ),
-      ),
+        DecoratedBox(
+          decoration: BoxDecoration(gradient: LinearGradient(colors: colors)),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(
+                  height:  125// context.heightFraction(sizeFraction: 0.1),
+                ),
+                ...children,
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
