@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
@@ -23,9 +25,6 @@ class MusicDetailPage extends StatefulWidget {
 }
 
 class _MusicDetailPageState extends State<MusicDetailPage> {
-  PlayerState? _playerState;
-  final  advancedPlayer = AudioPlayer();
-
   double _currentSliderValue = 20;
 
   // audio player here
@@ -33,43 +32,6 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
   late AudioCache audioCache;
   bool isPlaying = true;
   bool isFavorie = true;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // initPlayer();
-  }
-
-  // initPlayer() {
-  //   advancedPlayer = new AudioPlayer();
-  //   audioCache = new AudioCache(fixedPlayer: advancedPlayer);
-  //   playSound(widget.songUrl);
-  // }
-  //
-  // playSound(localPath) async {
-  //   await advancedPlayer.play(localPath);
-  // }
-  //
-  // stopSound(localPath) async {
-  //   File audioFile = await audioCache.load(localPath);
-  //   await advancedPlayer.setUrl(audioFile.path);
-  //   advancedPlayer.stop();
-  // }
-  //
-  // seekSound() async {
-  //   File audioFile = await audioCache.load(widget.songUrl);
-  //   await advancedPlayer.setUrl(audioFile.path);
-  //   advancedPlayer.seek(Duration(milliseconds: 2000));
-  // }
-  //
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   super.dispose();
-  //   stopSound(widget.songUrl);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +44,7 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
   AppBar getAppBar() {
     return AppBar(
       backgroundColor: KColors.black,
+      leading: Icon(Icons.arrow_back, color: KColors.white,),
       elevation: 0,
       actions: [
         Row(
@@ -258,16 +221,15 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
                       child: Center(
                         child: Icon(
                           isPlaying
-                              ? Icons.stop
+                              ? Icons.pause
                               : Icons.play_arrow,
                           size: 28,
                           color: KColors.white,
                         ),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async{
                       if (isPlaying) {
-                        // stopSound(widget.songUrl);
                         setState(() {
                           isPlaying = false;
                         });

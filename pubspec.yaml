@@ -18,6 +18,9 @@ dependencies:
   change_app_package_name: ^1.2.0
   page_transition: ^2.1.0
   audioplayers: ^6.0.0
+  just_audio: ^0.9.38
+  audio_service: ^0.18.13
+  just_audio_background: ^0.0.1-beta.12
 
 
 
@@ -37,3 +40,4 @@ flutter:
     - assets/images/
     - assets/
     - assets/gaz/
+    - assets/songs/
