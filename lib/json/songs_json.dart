@@ -1,32 +1,88 @@
 import 'package:flutter/material.dart';
 
 const List<String> song_type_1 = [
-  "Music",
-  "Rock",
-  "Soul",
-  "Classic",
-  "Pop",
-  "R&B",
+  "Afrobeat",
+  "Rumba",
+  "Afro-pop",
+  "RnB",
+  "Folklore",
 ];
 const List<String> song_type_2 = [
-  "Podcasts",
-  "Made For You",
-  "Charts",
-  "New Releases",
-  "Discover",
+  "Concerts",
   "Concerts",
 ];
-const List<Map<String, dynamic>> songs = [
+const List<Map<String, dynamic>> songs_single = [
+  {
+    "img": "assets/gaz/11076243.jpeg",
+    "title": "Dendisa",
+    "description": "Gaz feat Niska",
+    "song_count": "",
+    "genre": "",
+    "duration": "",
+    "date": "",
+    "color": Color(0xFF64849c),
+    "song_url": "assets/songs/Gaz Mawete X Niska - Dendisa (Clip Officiel).mp3",
+  },
+  {
+    "img": "assets/gaz/20c60a9e42f8ff3a8b279ab77b0232c0.webp",
+    "title": "O lingi nini",
+    "description": "Gaz Mawete",
+    "song_count": "",
+    "genre": "",
+    "duration": "",
+    "date": "",
+    "color": Color(0xFF64849c),
+    "song_url": "assets/songs/Gaz Mawete - Olingi nini (Clip Officiel).mp3",
+  },
+  {
+    "img": "assets/gaz/hq720.jpg",
+    "title": "Dis moi",
+    "artiste": "Dis moi",
+    "description": "Gaz Mawete",
+    "song_count": "",
+    "genre": "",
+    "duration": "",
+    "date": "",
+    "color": Color(0xfff62929),
+    "song_url": "assets/songs/Gaz Mawete - Dis-moi (Audio Officiel) (128).aac",
+  },
+  {
+    "img": "assets/gaz/51Fy1G++3sL._UXNaN_FMjpg_QL85_.jpg",
+    "title": "Paulina",
+    "description": "Gaz Mawete",
+    "song_count": "",
+    "genre": "",
+    "duration": "",
+    "date": "",
+    "color": Color(0xFF64849c),
+    "song_url": "assets/songs/Gaz Mawete - Paulina (Clip Officiel).mp3",
+  },
+];
+const List<Map<String, dynamic>> albums = [
   {
     "img": "assets/gaz/m2g43Jzj.jpg",
     "title": "Puzzle",
-    "description": "Le tout premier album, une année après, découvrez les chiffres",
+    "description":
+        "Le tout premier album, une année après, découvrez les chiffres",
     "song_count": "14 chansons",
-    "date": "Déc. 2023",
+    "date": "4 mars 2022",
+    "genres":
+        "R&B/Soul, Nigerian R&B, Afropop, Pop, Nigerian Street Music, Afroswing, Hip-hop/Rap, French Urban Pop/R&B, Afrobeats",
     "color": Color(0xfff62929),
     "song_url": "songs/1.mp3",
     "songs": <Map<String, dynamic>>[
-      {"title": "Dis moi", "duration": "2:17"},
+      {
+        "img": "assets/gaz/hq720.jpg",
+        "title": "Dis moi",
+        "artiste": "Dis moi",
+        "description": "Gaz Mawete",
+        "song_count": "",
+        "genre": "",
+        "duration": "2:59",
+        "date": "2022",
+        "color": Color(0xfff62929),
+        "song_url": "assets/songs/Gaz Mawete - Dis-moi (Audio Officiel) (128).aac",
+      },
       {"title": "On y go", "duration": "1:31"},
       {"title": "Etumba", "duration": "1:29"},
       {"title": "Seki nga", "duration": "1:51"},
@@ -48,7 +104,7 @@ const List<Map<String, dynamic>> songs = [
     "song_count": "1 chant",
     "date": "2023",
     "color": Color(0xFF64849c),
-    "song_url": "songs/2.mp3",
+    "song_url": "assets/songs/Gaz Mawete X Niska - Dendisa (Clip Officiel).mp3",
     "songs": <Map<String, dynamic>>[]
   },
   {

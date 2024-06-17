@@ -1,7 +1,6 @@
-import 'dart:async';
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../utils/kcolors.dart';
 
@@ -13,25 +12,83 @@ class MusicDetailPage extends StatefulWidget {
   final String? songUrl;
 
   const MusicDetailPage(
-      { Key? key,
-       this.title,
-       this.description,
-       this.color,
-       this.img,
-       this.songUrl})
+      {Key? key,
+      this.title,
+      this.description,
+      this.color,
+      this.img,
+      this.songUrl})
       : super(key: key);
+
   @override
   _MusicDetailPageState createState() => _MusicDetailPageState();
 }
 
 class _MusicDetailPageState extends State<MusicDetailPage> {
-  double _currentSliderValue = 20;
+  final player = AudioPlayer();
+
+  String formaDuration(Duration d){
+    final minutes = d.inMinutes.remainder(60);
+    final secondes = d.inSeconds.remainder(60);
+    return "${minutes.toString().padLeft(2, '0')}: ${secondes.toString().padLeft(2, '0')}";
+  }
+  void handlePlayPause(){
+    if (player.playing){
+      player.pause();
+    }else{
+      player.play();
+    }
+  }
+
+  void handleSeek(double value){
+    player.seek(Duration(seconds: value.toInt()));
+  }
+
+  Duration position = Duration.zero;
+  Duration duration = Duration.zero;
+
+  @override
+  void initState() {
+    super.initState();
+    player.setAsset(widget.songUrl!);
+
+    player.positionStream.listen((p) {
+
+      setState(() {
+        position = p;
+      });
+
+    });
+
+    player.durationStream.listen((d) {
+      setState(() {
+        duration = d!;
+      });
+    });
+
+    player.playerStateStream.listen((state) {
+      if(state.processingState == ProcessingState.completed){
+        setState(() {
+          position = Duration.zero;
+        });
+        player.pause();
+        player.seek(position);
+      }
+    });
+  }
 
   // audio player here
   //late AudioPlayer advancedPlayer;
-  late AudioCache audioCache;
+  //late AudioCache audioCache;
   bool isPlaying = true;
   bool isFavorie = true;
+
+  @override
+  void dispose() {
+    super.dispose();
+    player.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,19 +101,24 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
   AppBar getAppBar() {
     return AppBar(
       backgroundColor: KColors.black,
-      leading: Icon(Icons.arrow_back, color: KColors.white,),
+      leading: IconButton(
+        onPressed: (){
+          Navigator.pop(context);
+        },
+          icon: Icon(
+        Icons.arrow_back,
+        color: KColors.white,
+      )),
       elevation: 0,
       actions: [
         Row(
           children: [
             IconButton(
                 icon: Icon(
-                  isFavorie?
-                  Icons.favorite_border:
-                  Icons.favorite,
+                  isFavorie ? Icons.favorite_border : Icons.favorite,
                   color: KColors.white,
                 ),
-                onPressed: (){
+                onPressed: () {
                   if (isFavorie) {
                     setState(() {
                       isFavorie = false;
@@ -107,7 +169,8 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
                   height: size.width - 60,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage(widget.img??""), fit: BoxFit.cover),
+                          image: AssetImage(widget.img ?? ""),
+                          fit: BoxFit.cover),
                       borderRadius: BorderRadius.circular(20)),
                 ),
               )
@@ -132,7 +195,7 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        widget.title??"",
+                        widget.title ?? "",
                         style: TextStyle(
                             fontSize: 18,
                             color: KColors.white,
@@ -141,11 +204,12 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
                       Container(
                         width: 150,
                         child: Text(
-                          widget.description??"",
+                          widget.description ?? "",
                           maxLines: 1,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 15, color: KColors.white.withOpacity(0.5)),
+                              fontSize: 15,
+                              color: KColors.white.withOpacity(0.5)),
                         ),
                       )
                     ],
@@ -163,15 +227,11 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
           ),
           Slider(
               activeColor: KColors.primary,
-              value: _currentSliderValue,
-              min: 0,
-              max: 200,
-              onChanged: (value) {
-                setState(() {
-                  _currentSliderValue = value;
-                });
-                // seekSound();
-              }),
+              value: position.inSeconds.toDouble(),
+              min: 0.0,
+              max: duration.inSeconds.toDouble(),
+              onChanged: handleSeek
+          ),
           SizedBox(
             height: 20,
           ),
@@ -181,11 +241,11 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "1:50",
+                  "${formaDuration(position)}",
                   style: TextStyle(color: KColors.white.withOpacity(0.5)),
                 ),
                 Text(
-                  "4:68",
+                  "${formaDuration(duration)}",
                   style: TextStyle(color: KColors.white.withOpacity(0.5)),
                 ),
               ],
@@ -216,30 +276,18 @@ class _MusicDetailPageState extends State<MusicDetailPage> {
                 IconButton(
                     iconSize: 50,
                     icon: Container(
-                      decoration:
-                          BoxDecoration(shape: BoxShape.circle, color: KColors.primary),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: KColors.primary),
                       child: Center(
                         child: Icon(
-                          isPlaying
-                              ? Icons.pause
-                              : Icons.play_arrow,
+                          player.playing ? Icons.pause : Icons.play_arrow,
                           size: 28,
                           color: KColors.white,
                         ),
                       ),
                     ),
-                    onPressed: () async{
-                      if (isPlaying) {
-                        setState(() {
-                          isPlaying = false;
-                        });
-                      } else {
-                        // playSound(widget.songUrl);
-                        setState(() {
-                          isPlaying = true;
-                        });
-                      }
-                    }),
+                    onPressed: handlePlayPause
+                ),
                 IconButton(
                     icon: Icon(
                       Icons.skip_next,

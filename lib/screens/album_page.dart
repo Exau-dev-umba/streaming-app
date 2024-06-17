@@ -28,6 +28,10 @@ class _AlbumPageState extends State<AlbumPage> {
   Widget getBody() {
     var size = MediaQuery.of(context).size;
     List<dynamic> songAlbums = widget.song['songs'] as List<dynamic>;
+    List updatedSongs = [
+      widget.song,
+      ...albums.where((song) => song['title'] != widget.song['title'])
+    ];
     return SingleChildScrollView(
       child: Stack(
         children: [
@@ -108,7 +112,7 @@ class _AlbumPageState extends State<AlbumPage> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 30),
                   child: Row(
-                    children: List.generate(songs.length, (index) {
+                    children: List.generate(albums.length, (index) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 30),
                         child: GestureDetector(
@@ -118,13 +122,13 @@ class _AlbumPageState extends State<AlbumPage> {
                                 PageTransition(
                                     alignment: Alignment.bottomCenter,
                                     child: MusicDetailPage(
-                                      title: songs[index]['title'] as String,
-                                      color: songs[index]['color'] as Color,
+                                      title: updatedSongs[index]['title'] as String,
+                                      color: updatedSongs[index]['color'] as Color,
                                       description:
-                                          songs[index]['description'] as String,
-                                      img: songs[index]['img'] as String,
+                                      updatedSongs[index]['description'] as String,
+                                      img: updatedSongs[index]['img'] as String,
                                       songUrl:
-                                          songs[index]['song_url'] as String,
+                                      updatedSongs[index]['song_url'] as String,
                                     ),
                                     type: PageTransitionType.scale));
                           },
@@ -136,7 +140,7 @@ class _AlbumPageState extends State<AlbumPage> {
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
                                         image: AssetImage(
-                                            songs[index]['img'] as String),
+                                            updatedSongs[index]['img'] as String),
                                         fit: BoxFit.cover),
                                     color: KColors.primary,
                                     borderRadius: BorderRadius.circular(10)),
@@ -145,7 +149,7 @@ class _AlbumPageState extends State<AlbumPage> {
                                 height: 20,
                               ),
                               Text(
-                                songs[index]['title'] as String,
+                                updatedSongs[index]['title'] as String,
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: KColors.white,
@@ -161,7 +165,7 @@ class _AlbumPageState extends State<AlbumPage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      songs[index]['song_count'] as String,
+                                      albums[index]['song_count'] as String,
                                       maxLines: 1,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
@@ -170,7 +174,7 @@ class _AlbumPageState extends State<AlbumPage> {
                                           fontWeight: FontWeight.w600),
                                     ),
                                     Text(
-                                      songs[index]['date'] as String,
+                                      updatedSongs[index]['date'] as String,
                                       maxLines: 1,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
@@ -204,12 +208,12 @@ class _AlbumPageState extends State<AlbumPage> {
                           PageTransition(
                               alignment: Alignment.bottomCenter,
                               child: MusicDetailPage(
-                                title: widget.song['title'] as String,
-                                color: widget.song['color'] as Color,
+                                title: songAlbums[index]['title'] as String,
+                                color: songAlbums[index]['color'] as Color,
                                 description:
-                                    widget.song['description'] as String,
-                                img: widget.song['img'] as String,
-                                songUrl: widget.song['song_url'] as String,
+                                songAlbums[index]['description'] as String,
+                                img: songAlbums[index]['img'] as String,
+                                songUrl: songAlbums[index]['song_url'] as String,
                               ),
                               type: PageTransitionType.scale));
                     },
