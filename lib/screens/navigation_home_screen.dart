@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:login_register_app/screens/all_albums_screen.dart';
 
 import '../utils/constants.dart';
 import '../utils/kcolors.dart';
@@ -19,7 +20,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
   int _currentIndex = 0;
   final pages= <Widget>[
     HomePage(),
-    HomePage(),
+    AllAlbum(),
     HomePage(),
   ];
 
@@ -59,13 +60,13 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             _currentIndex == 1
-                ? Constants.searchAlt
-                : Constants.search,
+                ? Constants.album
+                : Constants.album,
             height: 25,
             color:
             _currentIndex == 1 ? Colors.white : Colors.grey,
           ),
-          label: 'Search',
+          label: 'Album',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
@@ -74,9 +75,9 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
                 : Constants.setting,
             height: 25,
             color:
-            _currentIndex == 1 ? Colors.white : Colors.grey,
+            _currentIndex == 2 ? Colors.white : Colors.grey,
           ),
-          label: 'Setting',
+          label: 'Paramètre',
         ),
       ],
       onTap: (int index) {
